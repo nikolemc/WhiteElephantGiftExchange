@@ -192,6 +192,7 @@
     <Content Include="Views\Gifts\Gifts.cshtml" />
     <Content Include="Views\Gifts\Create.cshtml" />
     <Content Include="Views\Gifts\Edit.cshtml" />
+    <Content Include="Views\Gifts\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

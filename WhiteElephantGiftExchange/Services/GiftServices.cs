@@ -51,12 +51,12 @@ namespace WhiteElephantGiftExchange.Services
 
 
                 connection.Open();
-                sqlCommand.ExecuteNonQuery(); 
+                sqlCommand.ExecuteNonQuery();
                 connection.Close();
 
-            
+
             }
-          
+
 
         }
 
@@ -65,7 +65,7 @@ namespace WhiteElephantGiftExchange.Services
             using (var connection = new SqlConnection(connectionString))
             {
 
-                
+
 
                 var updateGift = @"UPDATE [dbo].[GiftExchangeTable] SET [Contents] = @Contents
                                                          ,[GiftHint] = @GiftHint
@@ -86,8 +86,8 @@ namespace WhiteElephantGiftExchange.Services
                 sqlCommand.Parameters.AddWithValue("@Height", revisedGift.Height);
                 sqlCommand.Parameters.AddWithValue("@Width", revisedGift.Width);
                 sqlCommand.Parameters.AddWithValue("@Depth", revisedGift.Depth);
-                sqlCommand.Parameters.AddWithValue("@Weight", revisedGift.Weight);             
-               
+                sqlCommand.Parameters.AddWithValue("@Weight", revisedGift.Weight);
+
 
                 sqlCommand.Parameters.AddWithValue("@IsOpened", revisedGift.IsOpened);
 
@@ -111,9 +111,9 @@ namespace WhiteElephantGiftExchange.Services
 
                 var sqlCommand = new SqlCommand(updatedGift, connection);
                 sqlCommand.Parameters.AddWithValue("@Id", id);
-               
+
                 connection.Open();
-               var reader =  sqlCommand.ExecuteReader();
+                var reader = sqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
                     rv = new Gifts(reader);
@@ -125,8 +125,31 @@ namespace WhiteElephantGiftExchange.Services
             return rv;
 
 
+
+
         }
 
-    }
+        public Gifts DeleteGift(int id)
+        {
+            var rv = new Gifts();
+            using (var connection = new SqlConnection(connectionString))
+            {
 
+                var updatedGift = @"DELETE FROM GiftExchangeTable WHERE @Id = Id;";
+
+                var sqlCommand = new SqlCommand(updatedGift, connection);
+                sqlCommand.Parameters.AddWithValue("@Id", id);
+
+                connection.Open();
+                var reader = sqlCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    rv = new Gifts(reader);
+                }
+                connection.Close();
+                
+            }
+            return rv;
+        }
+    }
 }

@@ -103,20 +103,55 @@ namespace WhiteElephantGiftExchange.Controllers
                 Weight = double.Parse(Weight),
                 IsOpened = bool.Parse(IsOpened),
             };
+                       
+            try
+            {
+                new GiftServices().UpdateGift(newGift);
+                return RedirectToAction("Index");
+            }
 
-            new GiftServices().UpdateGift(newGift);
+            catch
+            {
+                return View(newGift);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int Id)
+        {
+            var gift = new GiftServices().GetGift(Id);
+            return View(gift);
+        }
+
+        [HttpPost] //edit the gifts in the database
+        public ActionResult Delete(int Id, FormCollection collection)
+        {
+            
+            var Contents = collection["Contents"];
+            var GiftHint = collection["GiftHint"];
+            var WrappingPaperColor = collection["WrappingPaperColor"];
+            var Height = collection["Height"];
+            var Width = collection["Width"];
+            var Depth = collection["Depth"];
+            var Weight = collection["Weight"];
+            var IsOpened = collection["IsOpened"];
+            //var newGift = new Gifts // adding gift 
+            //{
+            //    Id = Id,
+            //    Contents = Contents,
+            //    GiftHint = GiftHint,
+            //    WrappingPaperColor = WrappingPaperColor,
+            //    Height = double.Parse(Height),
+            //    Width = double.Parse(Width),
+            //    Depth = double.Parse(Depth),
+            //    Weight = double.Parse(Weight),
+            //    IsOpened = bool.Parse(IsOpened),
+            //};
+
+            new GiftServices().DeleteGift(Id);
             return RedirectToAction("Index");
-
-            //try
-            //{
-            //    new GiftServices().UpdateGift(newGift);
-            //    return RedirectToAction("Edit");
-            //}
-
-            //catch
-            //{
-            //    return View(newGift);
-            //}
+            
+            
         }
 
     }
