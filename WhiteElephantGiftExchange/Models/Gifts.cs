@@ -16,7 +16,7 @@ namespace WhiteElephantGiftExchange.Models
         public double Width { get; set; }
         public double Depth { get; set; }
         public double Weight { get; set; }
-        public bool IsOpened { get; set; }
+        public bool? IsOpened { get; set; } = false;
 
         public Gifts() { }
         public Gifts(SqlDataReader reader)
@@ -29,7 +29,7 @@ namespace WhiteElephantGiftExchange.Models
             this.Width = (double)reader["Width"];
             this.Depth = (double)reader["Depth"];
             this.Weight = (double)reader["Weight"];
-            this.IsOpened = (bool)reader["IsOpened"];
+            this.IsOpened = (bool?)reader["IsOpened"];
         }
     }
 

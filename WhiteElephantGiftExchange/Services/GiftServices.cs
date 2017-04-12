@@ -26,8 +26,11 @@ namespace WhiteElephantGiftExchange.Services
                 }
                 connection.Close();
             }
+           
             return rv;
         }
+        
+
 
 
         public void AddGift(Gifts gift)
@@ -151,5 +154,35 @@ namespace WhiteElephantGiftExchange.Services
             }
             return rv;
         }
+
+
+
+        //public static object GetGifts(int id)
+        //{
+        //    return GetGifts.Where(f => f.Id == id); //need to FIX this
+
+
+        //    //return View(gifts.Where(x => x.IsOpened == false)); SQL for filtering if opene
+
+
+        //}
+
+        public static void OpenGift(int id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var openGift = @"UPDATE GiftExchangeTable SET IsOpened = @IsOpened WHERE @Id = Id";
+                var cmd = new SqlCommand(openGift, connection);
+                cmd.Parameters.AddWithValue("@IsOpened", true);
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                connection.Open();
+                var reader = cmd.ExecuteNonQuery();              
+                connection.Close();
+            }
+  
+            //Gifts.First(f => f.Id == id).IsOpened = true;
+        }
     }
+
 }

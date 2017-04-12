@@ -41,7 +41,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Contents)
+             @if (item.IsOpened.GetValueOrDefault())
+            {
+                     @Html.DisplayFor(modelItem => item.Contents)
+            }
+            else
+            {
+                <span>****NOT OPENED*****</span>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GiftHint)
@@ -67,7 +74,12 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
+            @if (!item.IsOpened.GetValueOrDefault())
+            {
+                @Html.ActionLink("Open", "Open", new { id = item.Id })
+            }
+
         </td>
     </tr>
 }

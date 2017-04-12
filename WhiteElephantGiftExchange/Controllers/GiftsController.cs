@@ -143,5 +143,20 @@ namespace WhiteElephantGiftExchange.Controllers
             
         }
 
+        [HttpGet]
+        public ActionResult Open(int Id)
+        {
+            var gift = new GiftServices().GetGift(Id);
+            return View(gift);
+        }
+
+        [HttpPost]
+        public ActionResult Open(int id, FormCollection collection)
+        {
+            GiftServices.OpenGift(id);
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
