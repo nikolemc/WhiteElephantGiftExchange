@@ -17,7 +17,7 @@ namespace WhiteElephantGiftExchange.Controllers
             // get all gifts
             var gifts = new GiftServices().GetAllGifts();
             // pass them to the view
-            return View(gifts);
+            return View(gifts.Where(x => x.IsOpened == false)); //this is my SQL statement for only showing presents that aren't opened.
         }
 
 
@@ -135,18 +135,7 @@ namespace WhiteElephantGiftExchange.Controllers
             var Depth = collection["Depth"];
             var Weight = collection["Weight"];
             var IsOpened = collection["IsOpened"];
-            //var newGift = new Gifts // adding gift 
-            //{
-            //    Id = Id,
-            //    Contents = Contents,
-            //    GiftHint = GiftHint,
-            //    WrappingPaperColor = WrappingPaperColor,
-            //    Height = double.Parse(Height),
-            //    Width = double.Parse(Width),
-            //    Depth = double.Parse(Depth),
-            //    Weight = double.Parse(Weight),
-            //    IsOpened = bool.Parse(IsOpened),
-            //};
+            
 
             new GiftServices().DeleteGift(Id);
             return RedirectToAction("Index");
