@@ -3,8 +3,7 @@
 @{
     ViewBag.Title = "Open";
 }
-<h2>Are you sure?</h2>
-
+<h2>Congratulations your present is</h2>
 
 @using (Html.BeginForm())
 {
@@ -16,7 +15,14 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
-        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contents, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contents, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contents, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.GiftHint, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -73,19 +79,10 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Yes Please" class="btn btn-default" />
-            </div>
-        </div>
+   
     </div>
 }
 
 <div>
-    @Html.ActionLink("No thanks", "Index", null, new { @class = "btn btn-default" });
+    @Html.ActionLink("Back to List", "Index")
 </div>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

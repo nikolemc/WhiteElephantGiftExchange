@@ -18,6 +18,19 @@ namespace WhiteElephantGiftExchange.Controllers
             var gifts = new GiftServices().GetAllGifts();
             // pass them to the view
             return View(gifts.Where(x => x.IsOpened == false)); //this is my SQL statement for only showing presents that aren't opened.
+
+
+        }
+
+        public ActionResult AllGifts()
+        {
+
+            // get all gifts
+            var gifts = new GiftServices().GetAllGifts();
+            // pass them to the view
+            return View("Index",gifts); 
+
+
         }
 
 
@@ -154,9 +167,22 @@ namespace WhiteElephantGiftExchange.Controllers
         public ActionResult Open(int id, FormCollection collection)
         {
             GiftServices.OpenGift(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("OpenGift",new { id = id });
         }
 
+        [HttpGet]
+        public ActionResult OpenGift(int Id)
+        {
+            var gift = new GiftServices().GetGift(Id);
+            return View(gift);
+        }
+
+        [HttpPost]
+        public ActionResult OpenGift(int id, FormCollection collection)
+        {
+            //GiftServices.OpenGift(id);
+            return RedirectToAction("Index");
+        }
 
     }
 }
